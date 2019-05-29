@@ -1,0 +1,22 @@
+driver:
+  name: ec2
+  region: eu-west-1
+  require_chef_omnibus: true
+  instance_type: t2.micro
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: ubuntu-16.04
+    driver:
+     box: ubuntu/xenial64
+
+suites:
+  - name: default
+    run_list:
+      - recipe[mongo-server::default]
+    verifier:
+      inspec_tests:
+        - test/integration/default
+    attributes:
